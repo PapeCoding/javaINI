@@ -1,5 +1,4 @@
 package INIHandler;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -59,6 +58,10 @@ public class INIHandler {
 		String currentSection = null;
 		while(fileScanner.hasNextLine()){
 			String line = fileScanner.nextLine();
+			
+			if(line.startsWith("\uFEFF")){ //Catch UTF-8 BOM character
+				line = line.substring(1);
+	        }
 			
 			if(line.matches("\\[.*\\]")){ //section
 				currentSection = line.replaceAll("\\[(.*)\\]", "$1");
